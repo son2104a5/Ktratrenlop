@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<h2>List Customer</h2>
+<div>
+    <a href="customers/add">Add Customer</a>
+    <form action="#">
+        <input type="text" name="search" placeholder="Search by name or address">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td><img th:src="${customer.imageUrl}" alt="" width="50" height="50"></td>
+        <td th:text="${customer.firstName} + ' ' + ${customer.lastName}"></td>
+        <td th:text="${customer.address}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td>
+            <a th:href="customers/update/${customer.id}">Update</a> |
+            <a th:href="customers/delete/${customer.id}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
