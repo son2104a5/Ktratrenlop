@@ -1,34 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Customer</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h2>Add Customer</h2>
-<form action="/customers/add" method="post" enctype="multipart/form-data">
+<body class="p-8 bg-gray-100">
+<h2 class="text-xl font-bold mb-4">Add Customer</h2>
+
+<form th:action="@{/customers/add}" th:object="${customer}" method="post" enctype="multipart/form-data" class="space-y-4 bg-white p-6 rounded shadow max-w-md">
     <div>
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
+        <input type="text" th:field="*{firstName}" id="firstName" class="w-full border p-2 rounded">
+        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-red-500 text-sm mt-1"></p>
     </div>
     <div>
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required>
+        <input type="text" th:field="*{lastName}" id="lastName" class="w-full border p-2 rounded">
+        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-red-500 text-sm mt-1"></p>
     </div>
     <div>
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+        <input type="text" th:field="*{address}" id="address" class="w-full border p-2 rounded">
     </div>
     <div>
         <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" required>
+        <input type="text" th:field="*{phoneNumber}" id="phoneNumber" class="w-full border p-2 rounded">
     </div>
     <div>
-        <label for="imageUrl">Image URL:</label>
-        <input type="file" id="imageUrl" name="imageUrl">
+        <label for="imageFile">Image:</label>
+        <input type="file" name="imageFile" id="imageFile" class="w-full">
     </div>
-    <button type="submit">Add Customer</button>
-    <a href="/customers">Back to List</a>
+    <div class="flex items-center gap-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Customer</button>
+        <a href="/customers" class="text-blue-600 hover:underline">Back to List</a>
+    </div>
 </form>
 </body>
 </html>

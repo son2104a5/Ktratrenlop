@@ -5,39 +5,51 @@
     <title>Customers</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h2>List Customer</h2>
-<div>
-    <a href="customers/add">Add Customer</a>
-    <form action="#">
-        <input type="text" name="search" placeholder="Search by name or address">
-        <button type="submit">Search</button>
-    </form>
+<body class="bg-gray-100 min-h-screen font-sans p-6">
+<div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Customer List</h2>
+
+    <div class="flex justify-between items-center mb-4">
+        <a href="customers/add" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Add Customer</a>
+        <form action="#" method="get" class="flex space-x-2">
+            <input type="text" name="search" placeholder="Search by name or address"
+                   class="px-4 py-2 border border-gray-300 rounded w-64">
+            <button type="submit"
+                    class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Search</button>
+        </form>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border border-gray-200">
+            <thead class="bg-gray-200">
+            <tr>
+                <th class="px-4 py-2 border">ID</th>
+                <th class="px-4 py-2 border">Image</th>
+                <th class="px-4 py-2 border">Name</th>
+                <th class="px-4 py-2 border">Address</th>
+                <th class="px-4 py-2 border">Phone</th>
+                <th class="px-4 py-2 border">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}" class="text-center hover:bg-gray-100">
+                <td class="px-4 py-2 border" th:text="${customer.id}"></td>
+                <td class="px-4 py-2 border">
+                    <img th:src="${customer.imageUrl}" alt="Customer Image" class="w-12 h-12 rounded-full object-cover mx-auto">
+                </td>
+                <td class="px-4 py-2 border" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></td>
+                <td class="px-4 py-2 border" th:text="${customer.address}"></td>
+                <td class="px-4 py-2 border" th:text="${customer.phoneNumber}"></td>
+                <td class="px-4 py-2 border">
+                    <a th:href="@{'/customers/update/' + ${customer.id}}"
+                       class="text-blue-500 hover:underline mr-2">Update</a>
+                    <a th:href="@{'/customers/delete/' + ${customer.id}}"
+                       class="text-red-500 hover:underline">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Image</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="customer : ${customers}">
-        <td th:text="${customer.id}"></td>
-        <td><img th:src="${customer.imageUrl}" alt="" width="50" height="50"></td>
-        <td th:text="${customer.firstName} + ' ' + ${customer.lastName}"></td>
-        <td th:text="${customer.address}"></td>
-        <td th:text="${customer.phoneNumber}"></td>
-        <td>
-            <a th:href="customers/update/${customer.id}">Update</a> |
-            <a th:href="customers/delete/${customer.id}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>

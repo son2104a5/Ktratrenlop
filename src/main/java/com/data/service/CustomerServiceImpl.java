@@ -28,11 +28,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void update(Customer customer) {
-        customerRepository.update(customer);
-    }
-
-    @Override
     public void delete(int id) {
         customerRepository.delete(id);
     }

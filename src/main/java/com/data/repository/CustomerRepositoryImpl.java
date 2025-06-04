@@ -35,20 +35,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void update(Customer customer) {
-        Customer existingCustomer = em.find(Customer.class, customer.getId());
-        if (existingCustomer != null) {
-            existingCustomer.setFirstName(customer.getFirstName());
-            existingCustomer.setLastName(customer.getLastName());
-            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
-            existingCustomer.setAddress(customer.getAddress());
-            existingCustomer.setImageUrl(customer.getImageUrl());
-            existingCustomer.setFileImage(existingCustomer.getFileImage());
-            em.merge(existingCustomer);
-        }
-    }
-
-    @Override
     public void delete(int id) {
         Customer customer = em.find(Customer.class, id);
         if (customer != null) {
